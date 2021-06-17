@@ -1,0 +1,42 @@
+.chatPaneContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatTopBar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chatTopLeftContainer {
+  display: flex;
+}
+.userAndEmailContainer {
+  margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.username_chat {
+  color: white;
+}
+
+.email_chat {
+  color: grey;
+  font-size: 0.9rem;
+}
+
+.chatUserImg {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.interactIcons_chatTop {
+  width: 2em;
+  height: 2em;
+  margin-right: 0.5em;
+}
