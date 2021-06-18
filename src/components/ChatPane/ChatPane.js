@@ -1,6 +1,7 @@
 import React from 'react'
 import './chatpane.css'
-function ChatPane({ currentChannel }) {
+import { currentChatDetailsConst } from '../../constants/globalConstants'
+function ChatPane({ currentChannel, user }) {
   console.log("currentChannel", currentChannel)
   return (
     <div className="chatPaneContainer">
@@ -25,77 +26,27 @@ function ChatPane({ currentChannel }) {
       <hr className="hr" />
       <div className="chatMiddleBar">
         <div className="chatContentItem chatLeft">
-          <div>
-            <img className="chatItemLogo" src="/img/user.jpeg" />
-
-          </div>
+          <img className="chatItemLogo" src="/img/user.jpeg" />
           <div className="chatItemText">Hi😃, Thidfgdfgdfgdfgdg dfgd dfg dfg dfg dfg dfg dfg dfg dfg dfgdghffghjgkjkhjk s is single line example Hi😃, This is single line example Hi😃, This is single line example<div className="chatTime">10:23 PM</div></div>
         </div>
-        <div className="chatContentItem chatRight">
-          <div className="chatItemText">Hi😃, This is single line example Hi😃, This is single line example Hi😃, This is single line example <div className="chatTime">10:23 PM</div></div>
 
-          <div>
-            {/* <div className="chatTime">10:23 PM</div> */}
+
+        {/* <div className="chatContentItem chatRight">
+          <div className="chatItemText">Hi😃, This is single line example Hi😃, This is single line example Hi😃, This is single line example <div className="chatTime">10:23 PM</div></div>
+          
             <img className="chatItemLogo" src="/img/user.jpeg" />
-          </div>
+          
         </div>
 
         <div className="chatContentItem chatRight">
           <div className="chatItemText">Hi😃, This is single line example Hi😃, This is <div className="chatTime">10:23 PM</div></div>
-          <div>
-            {/* <div className="chatTime">10:23 PM</div> */}
-            <img className="chatItemLogo" src="/img/user.jpeg" />
-          </div>
 
-        </div>
-        <div className="chatContentItem chatLeft">
-          <div>
-            <img className="chatItemLogo" src="/img/user.jpeg" />
+          <img className="chatItemLogo" src="/img/user.jpeg" />
 
-          </div>
-          <div className="chatItemText">Hi😃, Thidfgdfgdfgdfgdg dfgd dfg dfg dfg dfg dfg dfg dfg dfg dfgdghffghjgkjkhjk s is single line example Hi😃, This is single line example Hi😃, This is single line example<div className="chatTime">10:23 PM</div></div>
-        </div>
-        <div className="chatContentItem chatRight">
-          <div className="chatItemText">Hi😃, This is single line example Hi😃, This is single line example Hi😃, This is single line example <div className="chatTime">10:23 PM</div></div>
 
-          <div>
-            {/* <div className="chatTime">10:23 PM</div> */}
-            <img className="chatItemLogo" src="/img/user.jpeg" />
-          </div>
-        </div>
+        </div> */}
 
-        <div className="chatContentItem chatRight">
-          <div className="chatItemText">Hi😃, This is single line example Hi😃, This is <div className="chatTime">10:23 PM</div></div>
-          <div>
-            {/* <div className="chatTime">10:23 PM</div> */}
-            <img className="chatItemLogo" src="/img/user.jpeg" />
-          </div>
 
-        </div>
-        <div className="chatContentItem chatLeft">
-          <div>
-            <img className="chatItemLogo" src="/img/user.jpeg" />
-
-          </div>
-          <div className="chatItemText">Hi😃, Thidfgdfgdfgdfgdg dfgd dfg dfg dfg dfg dfg dfg dfg dfg dfgdghffghjgkjkhjk s is single line example Hi😃, This is single line example Hi😃, This is single line example<div className="chatTime">10:23 PM</div></div>
-        </div>
-        <div className="chatContentItem chatRight">
-          <div className="chatItemText">Hi😃, This is single line example Hi😃, This is single line example Hi😃, This is single line example <div className="chatTime">10:23 PM</div></div>
-
-          <div>
-            {/* <div className="chatTime">10:23 PM</div> */}
-            <img className="chatItemLogo" src="/img/user.jpeg" />
-          </div>
-        </div>
-
-        <div className="chatContentItem chatRight">
-          <div className="chatItemText">Hi😃, This is single line example Hi😃, This is <div className="chatTime">10:23 PM</div></div>
-          <div>
-            {/* <div className="chatTime">10:23 PM</div> */}
-            <img className="chatItemLogo" src="/img/user.jpeg" />
-          </div>
-
-        </div>
       </div>
       <hr className="hr" />
       <div className="chatBottomBar">

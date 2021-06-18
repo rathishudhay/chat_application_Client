@@ -6,7 +6,8 @@ import ChatPane from '../ChatPane/ChatPane'
 import './home.css'
 import { currentChannelSelectedConst } from '../../constants/globalConstants'
 function Home() {
-  const { user, setUser } = useContext(UserContext)
+  const [user, setUser] = useState({ email: "rathishudhay@gmail.com" })
+  // const { user, setUser } = useContext(UserContext)
   // const [friendUsers, setFriendUsers] = useState([]);
   // useEffect(() => {
   //   user.socket.emit("getFriendUsers", user.email);
@@ -27,7 +28,7 @@ function Home() {
         <LeftPane currentChannel={currentChannel} />
       </div>
       <div className="mainbar">
-        <ChatPane currentChannel={currentChannel} />
+        <ChatPane user={user} currentChannel={currentChannel} />
       </div>
       {/* {user.email}{user.socket.id} */}
     </div>
