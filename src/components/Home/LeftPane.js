@@ -1,6 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './leftpane.css'
-function LeftPane() {
+import { channelListConstant } from '../../constants/globalConstants'
+import { formatDateForChannelList } from '../../services/date'
+function LeftPane({ currentChannel }) {
+
+  const [channelList, setChannelList] = useState(channelListConstant);
+
+  const onChannelSelected = (channelItem) => {
+    if (currentChannel.currentChannelSelected.email !== channelItem.email) {
+      console.log("inside if onChannelSelected")
+      currentChannel.setCurrentChannelSelected(channelItem)
+    }
+    else {
+      console.log("inside else onChannelSelected")
+    }
+  }
+
   return (
     <div className="chatRightbarContent">
       <img className="userImg" src="/img/user.jpeg" />
@@ -8,121 +23,31 @@ function LeftPane() {
       <div className="email">rathishudhay@gmail.com</div>
       <div className="searchContainer">
         <input className="searchInput" type="text" placeholder="search people" ></input>
-        <img className="searchImg" src="/img/search.png" />
+        <img className="searchImg" src="/img/search.svg" />
       </div>
 
       <div className="chatPeopleList">
-        <div className="singleItemContainer">
+        {channelList.map(channelItem => (<div onClick={() => onChannelSelected(channelItem)} className="singleItemContainer">
           <div className="chatPeopleSingleItem">
             <div className="chatUserImgWithOnlineStatus">
-              <img src="/img/user.jpeg" className="chatPeopleSingleItemThumbnail" />
-              <div className="onlineStatus"></div>
+              <img src={channelItem.profilePicUrl} className="chatPeopleSingleItemThumbnail" />
+              <div className={"onlineStatus " + channelItem.onlineStatus}></div>
             </div>
             <div className="chatTextInfoContainer">
               <div className="chatUserAndTimeline">
-                <div className="chatUsername">John Doe</div>
-                <div className="chatTimeline">7:25 AM</div>
+                <div className="chatUsername">{channelItem.name}</div>
+                <div className="chatTimeline">{formatDateForChannelList(channelItem.lastMessageTime)}</div>
               </div>
-              <div className="lastChat">Can you hold the meeting?</div>
+              <div className="lastChat">{channelItem.lastMessage}</div>
             </div>
           </div>
           <hr className="hr" />
-        </div>
+        </div>))
+        }
 
-        <div className="singleItemContainer">
-          <div className="chatPeopleSingleItem">
-            <div className="chatUserImgWithOnlineStatus">
-              <img src="/img/user.jpeg" className="chatPeopleSingleItemThumbnail" />
-            </div>
-            <div className="chatTextInfoContainer">
-              <div className="chatUserAndTimeline">
-                <div className="chatUsername">John Doe</div>
-                <div className="chatTimeline">7:25 AM</div>
-              </div>
-              <div className="lastChat">Can you hold the meeting?</div>
-            </div>
-          </div>
-          <hr className="hr" />
-        </div>
-        <div className="singleItemContainer">
-          <div className="chatPeopleSingleItem">
-            <div className="chatUserImgWithOnlineStatus">
-              <img src="/img/user.jpeg" className="chatPeopleSingleItemThumbnail" />
-            </div>
-            <div className="chatTextInfoContainer">
-              <div className="chatUserAndTimeline">
-                <div className="chatUsername">John Doe</div>
-                <div className="chatTimeline">7:25 AM</div>
-              </div>
-              <div className="lastChat">Can you hold the meeting?</div>
-            </div>
-          </div>
-          <hr className="hr" />
-        </div>
-        <div className="singleItemContainer">
-          <div className="chatPeopleSingleItem">
-            <div className="chatUserImgWithOnlineStatus">
-              <img src="/img/user.jpeg" className="chatPeopleSingleItemThumbnail" />
-            </div>
-            <div className="chatTextInfoContainer">
-              <div className="chatUserAndTimeline">
-                <div className="chatUsername">John Doe</div>
-                <div className="chatTimeline">7:25 AM</div>
-              </div>
-              <div className="lastChat">Can you hold the meeting?</div>
-            </div>
-          </div>
-          <hr className="hr" />
-        </div>
-        <div className="singleItemContainer">
-          <div className="chatPeopleSingleItem">
-            <div className="chatUserImgWithOnlineStatus">
-              <img src="/img/user.jpeg" className="chatPeopleSingleItemThumbnail" />
-            </div>
-            <div className="chatTextInfoContainer">
-              <div className="chatUserAndTimeline">
-                <div className="chatUsername">John Doe</div>
-                <div className="chatTimeline">7:25 AM</div>
-              </div>
-              <div className="lastChat">Can you hold the meeting?</div>
-            </div>
-          </div>
-          <hr className="hr" />
-        </div>
-        <div className="singleItemContainer">
-          <div className="chatPeopleSingleItem">
-            <div className="chatUserImgWithOnlineStatus">
-              <img src="/img/user.jpeg" className="chatPeopleSingleItemThumbnail" />
-            </div>
-            <div className="chatTextInfoContainer">
-              <div className="chatUserAndTimeline">
-                <div className="chatUsername">John Doe</div>
-                <div className="chatTimeline">7:25 AM</div>
-              </div>
-              <div className="lastChat">Can you hold the meeting?</div>
-            </div>
-          </div>
-          <hr className="hr" />
-        </div>
-        <div className="singleItemContainer">
-          <div className="chatPeopleSingleItem">
-            <div className="chatUserImgWithOnlineStatus">
-              <img src="/img/user.jpeg" className="chatPeopleSingleItemThumbnail" />
-            </div>
-            <div className="chatTextInfoContainer">
-              <div className="chatUserAndTimeline">
-                <div className="chatUsername">John Doe</div>
-                <div className="chatTimeline">7:25 AM</div>
-              </div>
-              <div className="lastChat">Can you hold the meeting?</div>
-            </div>
-          </div>
-          <hr className="hr" />
-        </div>
 
-        <div className="addContact">+</div>
       </div>
-
+      <div className="addContact">+</div>
       {/* <div className="bottomContainer">
         <div className="userEmail">rathishudhay@gmail.com</div>
         <div className="addContact">+</div>

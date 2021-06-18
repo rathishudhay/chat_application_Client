@@ -2,19 +2,19 @@
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 2fr 7fr;
 }
 
 .sidebar {
   background-color: rgb(20, 20, 20);
   height: 100%;
-  padding: 2em 1em 0em 1em;
+  padding: 2em 2em 2em 2em;
   overflow: hidden;
 }
 
 .mainbar {
   background-color: rgb(30, 30, 30);
   height: 100%;
-  padding: 2em 1em 0em 1em;
+  padding: 2em 2em 2em 2em;
   overflow: hidden;
 }
