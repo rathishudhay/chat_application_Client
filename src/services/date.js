@@ -16,7 +16,7 @@ const datesAreOnSameDay = (first, second) => {
     first.getDate() === second.getDate();
 }
 
-const getFormattedTimeString = (dateObject) => {
+export const getFormattedTimeString = (dateObject) => {
   var hours = dateObject.getHours();
   var minutes = dateObject.getMinutes();
   var ampm = hours >= 12 ? 'PM' : 'AM';

@@ -16,10 +16,9 @@ function Auth() {
     const socket = io('http://localhost:3001');
     socket.on("connect", () => {
       console.log("you connected with Id:" + socket.id);
-      socket.emit("setUserOnline", { socketId: socket.id, email: googleResponse.profileObj.email })
+      socket.emit("setUserOnline", { socketId: socket.id, email: googleResponse.profileObj.email, profilePicUrl: googleResponse.profileObj.imageUrl, name: googleResponse.profileObj.name })
       setUser({ ...googleResponse.profileObj, socket: socket })
     })
-
   }
 
 
@@ -32,9 +31,6 @@ function Auth() {
         onFailure={responseGoogle}
         cookiePolicy={'single_host_origin'}
         className="authBtn"
-      // render={renderProps => (
-      //   <button className="authBtn" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login with Google</button>
-      // )}
       />
     </div>
   )

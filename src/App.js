@@ -22,11 +22,11 @@ function App() {
     <div className="App">
       <UserContext.Provider value={value}>
         {
-          // user == null
-          //   ?
-          //   <Auth />
-          //   :
-          <Home />
+          user == null
+            ?
+            <Auth />
+            :
+            <Home />
         }
       </UserContext.Provider>
     </div>

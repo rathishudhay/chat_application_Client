@@ -195,6 +195,35 @@
   transform: scale(1.1);
 }
 
+.enterEmailAddContactText {
+  color: rgb(200, 200, 200);
+}
+
+.emailInputAndBtnContainer {
+  padding: 1em 0;
+}
+
+.emailInput {
+  padding: 0.5em 1.5em;
+  border-radius: 0.5em;
+  background-color: rgb(53, 53, 53);
+  box-shadow: 0 0 3px gray;
+  border: none;
+  font-size: 1rem;
+  color: white;
+}
+
+.addContactPopupBtn {
+  padding: 0.5em 1.5em;
+  border-radius: 0.5em;
+  background-color: rgb(94, 94, 94);
+  box-shadow: 0 0 3px gray;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  margin-left: 0.5em;
+}
+
 /* .bottomContainer {
   width: 100%;
   background: rgb(75, 75, 75);
