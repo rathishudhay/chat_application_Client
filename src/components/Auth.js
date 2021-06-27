@@ -5,7 +5,7 @@ import axios from 'axios'
 import './auth.css'
 import { UserContext } from '../context/UserContext';
 import { io } from 'socket.io-client'
-
+import { addUserAndSocket } from '../services/api-services'
 
 function Auth() {
 
@@ -16,8 +16,16 @@ function Auth() {
     const socket = io('http://localhost:3001');
     socket.on("connect", () => {
       console.log("you connected with Id:" + socket.id);
-      socket.emit("setUserOnline", { socketId: socket.id, email: googleResponse.profileObj.email, profilePicUrl: googleResponse.profileObj.imageUrl, name: googleResponse.profileObj.name })
-      setUser({ ...googleResponse.profileObj, socket: socket })
+      addUserAndSocket({ socketId: socket.id, email: googleResponse.profileObj.email, profilePicUrl: googleResponse.profileObj.imageUrl, name: googleResponse.profileObj.name })
+        .then(res => {
+          if (res.status == 200) {
+            setUser({ ...googleResponse.profileObj, socket: socket })
+          }
+        })
+        .catch(err => {
+          alert("something went wrong")
+        })
+
     })
   }
 
