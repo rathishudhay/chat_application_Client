@@ -7,7 +7,9 @@ import { io } from 'socket.io-client'
 
 function App() {
   const [user, setUser] = useState(null)
-  const value = useMemo(() => ({ user, setUser }), [user, setUser])
+  const [channelList, setChannelList] = useState(null);
+  const [messagesOfAllUsers, setMessagesOfAllUsers] = useState(null);
+  const value = useMemo(() => ({ user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers }), [user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers])
 
   // useEffect(() => {
   //   const socket = io('http://localhost:3001');

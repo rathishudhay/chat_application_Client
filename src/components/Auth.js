@@ -9,7 +9,7 @@ import { addUserAndSocket } from '../services/api-services'
 
 function Auth() {
 
-  const { user, setUser } = useContext(UserContext)
+  const { setUser, setChannelList, setMessagesOfAllUsers } = useContext(UserContext)
 
   const responseGoogle = (googleResponse) => {
     console.log(googleResponse);
@@ -18,14 +18,22 @@ function Auth() {
       console.log("you connected with Id:" + socket.id);
       addUserAndSocket({ socketId: socket.id, email: googleResponse.profileObj.email, profilePicUrl: googleResponse.profileObj.imageUrl, name: googleResponse.profileObj.name })
         .then(res => {
+          console.log(res);
           if (res.status == 200) {
+            let channelList = [], allUserMessages = [];
+            res.data.chatDetails.forEach((chatItem) => {
+              channelList.push(chatItem.friendData)
+              // const messagesOf
+              allUserMessages.push({ email: chatItem.friendData.email, type: chatItem.type, messages: chatItem.messages })
+            })
+            setChannelList(channelList)
+            setMessagesOfAllUsers(allUserMessages)
             setUser({ ...googleResponse.profileObj, socket: socket })
           }
         })
         .catch(err => {
           alert("something went wrong")
         })
-
     })
   }
 

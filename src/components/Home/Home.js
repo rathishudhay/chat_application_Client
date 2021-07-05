@@ -4,7 +4,7 @@ import { UserContext } from '../../context/UserContext'
 import LeftPane from './LeftPane'
 import ChatPane from '../ChatPane/ChatPane'
 import './home.css'
-import { currentChannelSelectedConst } from '../../constants/globalConstants'
+// import { currentChannelSelectedConst } from '../../constants/globalConstants'
 function Home() {
   console.log(useContext(UserContext))
   // const { user, setUser } = useContext(UserContext)
@@ -21,7 +21,7 @@ function Home() {
   //   var email = prompt("Enter email to add");
   //   user.socket.emit("addContactToUser", { userEmail: user.email, userToAddEmail: email })
   // }
-  const [currentChannelSelected, setCurrentChannelSelected] = useState(currentChannelSelectedConst);
+  const [currentChannelSelected, setCurrentChannelSelected] = useState(null);
   const currentChannel = useMemo(() => ({ currentChannelSelected, setCurrentChannelSelected }), [currentChannelSelected, setCurrentChannelSelected])
   return (
     <div className="homeContainer">
