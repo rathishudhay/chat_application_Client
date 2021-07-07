@@ -20,11 +20,19 @@ function Auth() {
         .then(res => {
           console.log(res);
           if (res.status == 200) {
-            let channelList = [], allUserMessages = [];
+            let channelList = [], allUserMessages = {};
             res.data.chatDetails.forEach((chatItem) => {
-              channelList.push(chatItem.friendData)
+              channelList.push({ ...chatItem.friendData, chatId: chatItem._id })
               // const messagesOf
-              allUserMessages.push({ email: chatItem.friendData.email, type: chatItem.type, messages: chatItem.messages })
+              const userMessages = {
+                email: chatItem.friendData.email,
+                type: chatItem.type,
+                messages: chatItem.messages,
+                name: chatItem.friendData.name,
+                profilePicUrl: chatItem.friendData.profilePicUrl,
+                onlineStatus: chatItem.friendData.onlineStatus
+              }
+              allUserMessages[chatItem._id] = userMessages;
             })
             setChannelList(channelList)
             setMessagesOfAllUsers(allUserMessages)

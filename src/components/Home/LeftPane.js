@@ -1,53 +1,67 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import './leftpane.css'
-import { channelListConstant } from '../../constants/globalConstants'
+// import { channelListConstant } from '../../constants/globalConstants'
 import { formatDateForChannelList } from '../../services/date'
 import Popup from '../Popup/Popup';
 import { UserContext } from '../../context/UserContext';
 import { addContact } from '../../services/api-services'
 
-function LeftPane({ currentChannel }) {
+function LeftPane({ currentSelectedChat }) {
 
-  const { channelList, setChannelList, messagesOfAllUsers } = useContext(UserContext);
+
+  const { channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers } = useContext(UserContext);
   const [isAddContactPopupClose, setIsAddContactPopupClose] = useState(true);
   const [searchPeopleInput, setSearchPeopleInput] = useState("")
   const addEmailContactInputRef = useRef()
-  const originalChannelList = useRef(channelListConstant)
+  const originalChannelList = useRef(channelList)
   const { user } = useContext(UserContext);
-  console.log(channelList);
   console.log(messagesOfAllUsers)
+
+
+  useEffect(() => {
+    console.log("effect", messagesOfAllUsers, channelList)
+    user.socket.on('addContact', (data) => { console.log("add contact", data); addContactInUI(data) });
+    //user.socket.emit('addContact', { data: "123" })
+  })
   const onChannelSelected = (channelItem) => {
-    console.log("currentChannel", currentChannel)
-    if (currentChannel.currentChannelSelected == null || currentChannel.currentChannelSelected.email !== channelItem.email) {
-      console.log("inside if onChannelSelected")
-      console.log(messagesOfAllUsers);
-      for (var messagesOfSingleUser of messagesOfAllUsers) {
-        console.log(messagesOfSingleUser);
-        if (channelItem.email == messagesOfSingleUser.email) {
-          channelItem.messages = messagesOfSingleUser.messages;
-          channelItem.type = messagesOfSingleUser.type;
-        }
-      }
-      console.log(channelItem)
-      currentChannel.setCurrentChannelSelected(channelItem)
+    console.log(currentSelectedChat)
+    if (currentSelectedChat == undefined || currentSelectedChat.chatId !== channelItem.chatId) {
+      currentSelectedChat.setChatId(channelItem.chatId)
     }
     else {
+
       console.log("inside else onChannelSelected")
     }
   }
+
+
+  const addContactInUI = (chatData) => {
+    setMessagesOfAllUsers((prevData) => {
+      const newData = { ...prevData };
+      chatData.messages = [];
+      newData[chatData.chatId] = chatData
+      return newData
+    })
+    setChannelList([...channelList, chatData])
+    setIsAddContactPopupClose(true)
+  }
+
 
   const addContactPopupButtonClicked = () => {
     const friendEmail = addEmailContactInputRef.current.value;
     addContact({ emailToAdd: friendEmail, userEmail: user.email })
       .then(res => {
         console.log(res);
-        const newChannel = res.data.friendData
-        setChannelList([...channelList, newChannel])
-        setIsAddContactPopupClose(true)
+        console.log(res.data);
+        const chatData = res.data.chatData
+        addContactInUI(chatData)
+        const dataToSendInSocket = { chatId: chatData.chatId, email: user.email, messages: [], onlineStatus: "online", profilePicUrl: user.profilePicUrl, emailToSend: chatData.email }
+        user.socket.emit("addContact", dataToSendInSocket)
       }).catch(err => {
         console.error(err)
       })
   }
+
 
   const searchPeopleInputChanged = (e) => {
     setSearchPeopleInput(e.target.value);
@@ -61,7 +75,6 @@ function LeftPane({ currentChannel }) {
 
   return (
     <div className="chatRightbarContent">
-      {console.log("img url:" + user.imgUrl)}
       <img src={user.imageUrl} className="userImg" />
       <div className="username">{user.name}</div>
       <div className="email">{user.email}</div>

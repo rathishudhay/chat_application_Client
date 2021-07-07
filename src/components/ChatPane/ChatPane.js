@@ -4,16 +4,21 @@ import './chatpane.css'
 import { getFormattedTimeString } from '../../services/date'
 import Picker from 'emoji-picker-react';
 import { UserContext } from '../../context/UserContext';
-function ChatPane({ currentChannel }) {
+function ChatPane({ currentSelectedChat }) {
   // console.log("currentChannel", currentChatDetailsConst)
   // console.log("user", user)
-  const { user } = useContext(UserContext)
+  const { user, messagesOfAllUsers, setMessagesOfAllUsers } = useContext(UserContext)
 
   // const [currentChatMessages, setCurrentChatMessages] = useState(currentChatDetailsConst.messages)
   const [chatTextInput, setChatTextInput] = useState("")
   // const [chosenEmoji, setChosenEmoji] = useState(null);
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
   const cursorPosition = useRef();
+
+  useEffect(() => {
+    console.log(currentSelectedChat, messagesOfAllUsers, setMessagesOfAllUsers);
+  })
+
   const onEmojiClick = (event, emojiObject) => {
 
     event.preventDefault();
@@ -37,16 +42,19 @@ function ChatPane({ currentChannel }) {
       content: chatTextInput,
       timestamp: new Date()
     }
+    console.log(messagesOfAllUsers);
+    // messagesOfAllUsers[currentSelectedChat.chatId].setCurrentChannelSelected((prevValue) => {
+    //   console.log(prevValue);
 
-    currentChannel.setCurrentChannelSelected((prevValue) => {
-      console.log(prevValue);
-      const newValue = {
-        ...prevValue, messages: [...prevValue.messages, currentMessage]
-      }
-      console.log(newValue)
-      return {
-        ...prevValue, messages: [...prevValue.messages, currentMessage]
-      }
+    //   return {
+    //     ...prevValue, messages: [...prevValue.messages, currentMessage]
+    //   }
+    // })
+    setMessagesOfAllUsers((prevValue) => {
+      const newValue = { ...prevValue };
+      console.log("new value:", newValue)
+      newValue[currentSelectedChat.chatId].messages.push(currentMessage);
+      return newValue
     })
 
     setChatTextInput("");
@@ -68,21 +76,21 @@ function ChatPane({ currentChannel }) {
   return (
 
     < div className="chatPaneContainer" >
-
-      {console.log("currentChatDetails", currentChannel)}
-      {currentChannel.currentChannelSelected != null && <>
+      {console.log("messages", messagesOfAllUsers)}
+      {console.log("currentChatDetails", currentSelectedChat)}
+      {messagesOfAllUsers != undefined && messagesOfAllUsers[currentSelectedChat.chatId] != null && <>
         <div className="chatTopBar">
           <div className="chatTopLeftContainer">
             <div className="chatUserImgContainer">
-              <img className="chatUserImg" src={currentChannel.currentChannelSelected.profilePicUrl} />
-              <div className={"onlineStatus " + currentChannel.currentChannelSelected.onlineStatus} ></div>
+              <img className="chatUserImg" src={messagesOfAllUsers[currentSelectedChat.chatId].profilePicUrl} />
+              <div className={"onlineStatus " + messagesOfAllUsers[currentSelectedChat.chatId].onlineStatus} ></div>
             </div>
             <div className="userAndEmailContainer">
               <div className="username_chat">
-                {currentChannel.currentChannelSelected.name}
+                {messagesOfAllUsers[currentSelectedChat.chatId].name}
               </div>
               <div className="email_chat">
-                {currentChannel.currentChannelSelected.email}
+                {messagesOfAllUsers[currentSelectedChat.chatId].email}
               </div>
             </div>
           </div>
@@ -94,12 +102,12 @@ function ChatPane({ currentChannel }) {
         </div>
         <hr className="hr" />
         <div className="chatMiddleBar">
-          {console.log("currentChannel", currentChannel)}
-          {currentChannel.currentChannelSelected != null && currentChannel.currentChannelSelected.messages.map((messageItem, i) => (
+          {console.log("currentChannel", messagesOfAllUsers[currentSelectedChat.chatId])}
+          {messagesOfAllUsers[currentSelectedChat.chatId] != null && messagesOfAllUsers[currentSelectedChat.chatId].messages.map((messageItem, i) => (
 
             <div key={i} className={"chatContentItem " + (user.email === messageItem.senderEmail ? "chatRight" : "chatLeft")}>
               {console.log("user", user)}
-              <img className="chatItemLogo" src={user.email === messageItem.senderEmail ? user.imageUrl : currentChannel.currentChannelSelected.profilePicUrl} />
+              <img className="chatItemLogo" src={user.email === messageItem.senderEmail ? user.imageUrl : messagesOfAllUsers[currentSelectedChat.chatId].profilePicUrl} />
               <div className="chatItemText">{messageItem.content}<div className="chatTime">{getFormattedTimeString(messageItem.timestamp)}</div></div>
             </div>
           )

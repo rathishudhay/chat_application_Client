@@ -21,15 +21,15 @@ function Home() {
   //   var email = prompt("Enter email to add");
   //   user.socket.emit("addContactToUser", { userEmail: user.email, userToAddEmail: email })
   // }
-  const [currentChannelSelected, setCurrentChannelSelected] = useState(null);
-  const currentChannel = useMemo(() => ({ currentChannelSelected, setCurrentChannelSelected }), [currentChannelSelected, setCurrentChannelSelected])
+  const [chatId, setChatId] = useState(null);
+  const currentSelectedChat = useMemo(() => ({ chatId, setChatId }), [chatId, setChatId])
   return (
     <div className="homeContainer">
       <div className="sidebar">
-        <LeftPane currentChannel={currentChannel} />
+        <LeftPane currentSelectedChat={currentSelectedChat} />
       </div>
       <div className="mainbar">
-        <ChatPane currentChannel={currentChannel} />
+        <ChatPane currentSelectedChat={currentSelectedChat} />
       </div>
       {/* {user.email}{user.socket.id} */}
     </div>
