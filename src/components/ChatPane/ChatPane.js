@@ -14,10 +14,12 @@ function ChatPane({ currentSelectedChat }) {
   // const [chosenEmoji, setChosenEmoji] = useState(null);
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
   const cursorPosition = useRef();
+  const fileInputRef = useRef();
 
   useEffect(() => {
+    user.socket.on('receiveMessage', (data => { console.log("received", data); populateMessageInUI(data); }))
     console.log(currentSelectedChat, messagesOfAllUsers, setMessagesOfAllUsers);
-  })
+  }, [])
 
   const onEmojiClick = (event, emojiObject) => {
 
@@ -36,13 +38,16 @@ function ChatPane({ currentSelectedChat }) {
 
   const textInputRef = useRef();
   const onSendButtonClicked = () => {
+    console.log(currentSelectedChat)
     const currentMessage = {
       senderEmail: user.email,
       contentType: "text",
       content: chatTextInput,
+      chatId: currentSelectedChat.chatId,
       timestamp: new Date()
     }
     console.log(messagesOfAllUsers);
+    user.socket.emit('sendMessage', currentMessage)
     // messagesOfAllUsers[currentSelectedChat.chatId].setCurrentChannelSelected((prevValue) => {
     //   console.log(prevValue);
 
@@ -50,14 +55,18 @@ function ChatPane({ currentSelectedChat }) {
     //     ...prevValue, messages: [...prevValue.messages, currentMessage]
     //   }
     // })
+    populateMessageInUI(currentMessage);
+
+    setChatTextInput("");
+  }
+
+  const populateMessageInUI = (currentMessage) => {
     setMessagesOfAllUsers((prevValue) => {
       const newValue = { ...prevValue };
       console.log("new value:", newValue)
-      newValue[currentSelectedChat.chatId].messages.push(currentMessage);
+      newValue[currentMessage.chatId].messages.push(currentMessage);
       return newValue
     })
-
-    setChatTextInput("");
   }
 
   const displayEmojiClicked = (e) => {
@@ -73,8 +82,17 @@ function ChatPane({ currentSelectedChat }) {
     console.log("text focus:", e.target.selectionStart)
   }
 
-  return (
+  const chooseFileImageClicked = () => {
+    fileInputRef.current.click();
+  }
 
+  const fileInputChanged = (event) => {
+    const selectedFile = event.target.files[0];
+    console.log(selectedFile)
+    fileInputRef.current.value = null
+  }
+
+  return (
     < div className="chatPaneContainer" >
       {console.log("messages", messagesOfAllUsers)}
       {console.log("currentChatDetails", currentSelectedChat)}
@@ -108,7 +126,7 @@ function ChatPane({ currentSelectedChat }) {
             <div key={i} className={"chatContentItem " + (user.email === messageItem.senderEmail ? "chatRight" : "chatLeft")}>
               {console.log("user", user)}
               <img className="chatItemLogo" src={user.email === messageItem.senderEmail ? user.imageUrl : messagesOfAllUsers[currentSelectedChat.chatId].profilePicUrl} />
-              <div className="chatItemText">{messageItem.content}<div className="chatTime">{getFormattedTimeString(messageItem.timestamp)}</div></div>
+              <div className="chatItemText">{messageItem.content}<div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div></div>
             </div>
           )
           )}
@@ -140,8 +158,10 @@ function ChatPane({ currentSelectedChat }) {
             {isEmojiOpen && <Picker disableAutoFocus onEmojiClick={onEmojiClick} pickerStyle={{ position: "absolute", right: "0", bottom: "3em", boxShadow: "none" }} />}
           </div>
 
-
-          <img className="fileInput" src="/img/paperclip.svg" />
+          <input
+            accept="image/*,video/*"
+            onChange={fileInputChanged} ref={fileInputRef} type="file" style={{ display: "none" }} />
+          <img onClick={chooseFileImageClicked} className="fileInput" src="/img/paperclip.svg" />
           <button onClick={onSendButtonClicked} className="sendButton">SEND</button>
         </div>
       </>

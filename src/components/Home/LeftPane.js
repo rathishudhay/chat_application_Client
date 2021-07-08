@@ -20,7 +20,10 @@ function LeftPane({ currentSelectedChat }) {
 
   useEffect(() => {
     console.log("effect", messagesOfAllUsers, channelList)
-    user.socket.on('addContact', (data) => { console.log("add contact", data); addContactInUI(data) });
+    user.socket.on('addContact', (data) => {
+      console.log("add contact", data);
+      addContactInUI(data)
+    });
     //user.socket.emit('addContact', { data: "123" })
     user.socket.on('setOnlineStatus', setOnlineStatus)
   })
@@ -60,17 +63,17 @@ function LeftPane({ currentSelectedChat }) {
 
   const addContactPopupButtonClicked = () => {
     const friendEmail = addEmailContactInputRef.current.value;
-    addContact({ emailToAdd: friendEmail, userEmail: user.email })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        const chatData = res.data.chatData
-        addContactInUI(chatData)
-        const dataToSendInSocket = { chatId: chatData.chatId, email: user.email, messages: [], onlineStatus: "online", profilePicUrl: user.profilePicUrl, emailToSend: chatData.email }
-        user.socket.emit("addContact", dataToSendInSocket)
-      }).catch(err => {
-        console.error(err)
-      })
+    user.socket.emit("addContact", { emailToAdd: friendEmail, userEmail: user.email }, (res) => addContactInUI(res.chatData))
+    // .then(res => {
+    //   console.log(res);
+    //   console.log(res.data);
+    //   const chatData = res.data.chatData
+    //   addContactInUI(chatData)
+    //   // const dataToSendInSocket = { chatId: chatData.chatId, email: user.email, messages: [], onlineStatus: "online", profilePicUrl: user.profilePicUrl, emailToSend: chatData.email }
+    //   // user.socket.emit("addContact", dataToSendInSocket)
+    // }).catch(err => {
+    //   console.error(err)
+    // })
   }
 
 
