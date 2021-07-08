@@ -50,6 +50,7 @@ function LeftPane({ currentSelectedChat }) {
 
 
   const addContactInUI = (chatData) => {
+    console.log(chatData)
     setMessagesOfAllUsers((prevData) => {
       const newData = { ...prevData };
       chatData.messages = [];

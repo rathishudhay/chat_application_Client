@@ -56,9 +56,9 @@ function ChatPane({ currentSelectedChat }) {
     //   }
     // })
     populateMessageInUI(currentMessage);
-
     setChatTextInput("");
   }
+
 
   const populateMessageInUI = (currentMessage) => {
     setMessagesOfAllUsers((prevValue) => {
@@ -90,6 +90,15 @@ function ChatPane({ currentSelectedChat }) {
     const selectedFile = event.target.files[0];
     console.log(selectedFile)
     fileInputRef.current.value = null
+    const currentMessage = {
+      senderEmail: user.email,
+      contentType: "imageAndVideo",
+      content: selectedFile,
+      mimeType: selectedFile.type,
+      chatId: currentSelectedChat.chatId,
+      timestamp: new Date()
+    }
+    user.socket.emit('sendMessage', currentMessage)
   }
 
   return (
@@ -127,6 +136,7 @@ function ChatPane({ currentSelectedChat }) {
               {console.log("user", user)}
               <img className="chatItemLogo" src={user.email === messageItem.senderEmail ? user.imageUrl : messagesOfAllUsers[currentSelectedChat.chatId].profilePicUrl} />
               <div className="chatItemText">{messageItem.content}<div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div></div>
+
             </div>
           )
           )}
@@ -139,8 +149,6 @@ function ChatPane({ currentSelectedChat }) {
    <img className="chatItemLogo" src="/img/user.jpeg" />
    <div className="chatItemText">Hi😃, Thidfgdfgdfgdfgdg dfgd dfg dfg dfg dfg dfg dfg dfg dfg dfgdghffghjgkjkhjk s is single line example Hi😃, This is single line example Hi😃, This is single line example<div className="chatTime">10:23 PM</div></div>
  </div> */}
-
-
         </div>
         <hr className="hr" />
         <div className="chatBottomBar">
