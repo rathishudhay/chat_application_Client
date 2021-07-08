@@ -22,14 +22,25 @@ function LeftPane({ currentSelectedChat }) {
     console.log("effect", messagesOfAllUsers, channelList)
     user.socket.on('addContact', (data) => { console.log("add contact", data); addContactInUI(data) });
     //user.socket.emit('addContact', { data: "123" })
+    user.socket.on('setOnlineStatus', setOnlineStatus)
   })
-  const onChannelSelected = (channelItem) => {
+
+  const setOnlineStatus = (data) => {
+    console.log("setOnlineStatus", data);
+    setMessagesOfAllUsers((prevData => {
+      prevData[data.chatId].onlineStatus = data.onlineStatus;
+      console.log(prevData);
+      return { ...prevData }
+    }))
+
+  }
+
+  const onChannelSelected = (chatId) => {
     console.log(currentSelectedChat)
-    if (currentSelectedChat == undefined || currentSelectedChat.chatId !== channelItem.chatId) {
-      currentSelectedChat.setChatId(channelItem.chatId)
+    if (currentSelectedChat == undefined || currentSelectedChat.chatId !== chatId) {
+      currentSelectedChat.setChatId(chatId)
     }
     else {
-
       console.log("inside else onChannelSelected")
     }
   }
@@ -42,7 +53,7 @@ function LeftPane({ currentSelectedChat }) {
       newData[chatData.chatId] = chatData
       return newData
     })
-    setChannelList([...channelList, chatData])
+    setChannelList([...channelList, chatData.chatId])
     setIsAddContactPopupClose(true)
   }
 
@@ -90,18 +101,18 @@ function LeftPane({ currentSelectedChat }) {
       </div>
 
       <div className="chatPeopleList">
-        {channelList.map(channelItem => (<div onClick={() => onChannelSelected(channelItem)} className="singleItemContainer">
+        {channelList.map(chatId => (<div onClick={() => onChannelSelected(chatId)} className="singleItemContainer">
           <div className="chatPeopleSingleItem">
             <div className="chatUserImgWithOnlineStatus">
-              <img src={channelItem.profilePicUrl} className="chatPeopleSingleItemThumbnail" />
-              <div className={"onlineStatus " + channelItem.onlineStatus}></div>
+              <img src={messagesOfAllUsers[chatId].profilePicUrl} className="chatPeopleSingleItemThumbnail" />
+              <div className={"onlineStatus " + messagesOfAllUsers[chatId].onlineStatus}></div>
             </div>
             <div className="chatTextInfoContainer">
               <div className="chatUserAndTimeline">
-                <div className="chatUsername">{channelItem.name}</div>
-                <div className="chatTimeline">{channelItem.lastMessageTime != undefined && formatDateForChannelList(channelItem.lastMessageTime)}</div>
+                <div className="chatUsername">{messagesOfAllUsers[chatId].name}</div>
+                <div className="chatTimeline">{messagesOfAllUsers[chatId].lastMessageTime != undefined && formatDateForChannelList(messagesOfAllUsers[chatId].lastMessageTime)}</div>
               </div>
-              <div className="lastChat">{channelItem.lastMessage}</div>
+              <div className="lastChat">{messagesOfAllUsers[chatId].lastMessage}</div>
             </div>
           </div>
           <hr className="hr" />
