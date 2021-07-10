@@ -4,7 +4,7 @@ import Auth from './components/Auth';
 import Home from './components/Home/Home';
 import { UserContext } from './context/UserContext'
 import { io } from 'socket.io-client'
-
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 function App() {
   const [user, setUser] = useState(null)
   const [channelList, setChannelList] = useState(null);
@@ -23,13 +23,21 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={value}>
-        {
+        {console.log("user", user)}
+        <Router>
+          <Switch>
+            <Route path="/" exact><Redirect to="/login" /></Route>
+            <Route path="/login" component={Auth} />
+            <Route path="/chat" component={Home} />
+          </Switch>
+        </Router>
+        {/* {
           user == null
             ?
             <Auth />
             :
             <Home />
-        }
+        } */}
       </UserContext.Provider>
     </div>
   );

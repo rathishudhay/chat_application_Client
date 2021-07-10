@@ -99,7 +99,7 @@
   font-weight: 300;
 }
 
-.chatItemText {
+.chatItemTextContainer {
   /* width: min(60%, auto); */
   max-width: 60%;
 
@@ -109,13 +109,27 @@
   position: relative;
 }
 
-.chatLeft .chatItemText {
+.chatItemImgContainer {
+  max-width: 40%;
+  padding: 1em 1em 2em 1em;
+  font-size: 0.9em;
+  margin-right: 0.5em;
+  position: relative;
+}
+
+.chatItemImg {
+  width: 100%;
+}
+
+.chatLeft .chatItemTextContainer,
+.chatLeft .chatItemImgContainer {
   border-radius: 0em 1em 1em 1em;
   background-color: rgb(48, 48, 48);
   color: rgb(172, 172, 172);
 }
 
-.chatRight .chatItemText {
+.chatRight .chatItemTextContainer,
+.chatRight .chatItemImgContainer {
   border-radius: 1em 0em 1em 1em;
   background-color: rgb(48, 48, 48);
   color: rgb(172, 172, 172);

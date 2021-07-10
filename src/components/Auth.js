@@ -6,13 +6,15 @@ import './auth.css'
 import { UserContext } from '../context/UserContext';
 import { io } from 'socket.io-client'
 import { addUserAndSocket } from '../services/api-services'
+import { useHistory } from 'react-router-dom'
 
 function Auth() {
 
   const { user, setUser, setChannelList, setMessagesOfAllUsers } = useContext(UserContext)
-
+  const history = useHistory();
   const responseGoogle = (googleResponse) => {
     console.log(googleResponse);
+    console.log(user);
     if (user == null) {
       const socket = io('http://localhost:3001');
       socket.on("connect", () => {
@@ -48,6 +50,7 @@ function Auth() {
           populateContactResponseDetails(res).then(() => {
             console.log("user set new");
             setUser({ ...googleResponse.profileObj, socket: socket })
+            history.replace('/chat')
           })
         })
       })

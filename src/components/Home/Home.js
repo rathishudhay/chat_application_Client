@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react'
 import { Socket } from 'socket.io-client'
 import { UserContext } from '../../context/UserContext'
-import LeftPane from './LeftPane'
+import HomeLeftPane from './HomeLeftPane'
 import ChatPane from '../ChatPane/ChatPane'
 import './home.css'
 // import { currentChannelSelectedConst } from '../../constants/globalConstants'
@@ -26,7 +26,7 @@ function Home() {
   return (
     <div className="homeContainer">
       <div className="sidebar">
-        <LeftPane currentSelectedChat={currentSelectedChat} />
+        <HomeLeftPane currentSelectedChat={currentSelectedChat} />
       </div>
       <div className="mainbar">
         <ChatPane currentSelectedChat={currentSelectedChat} />

@@ -1,12 +1,12 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
-import './leftpane.css'
+import './homeleftpane.css'
 // import { channelListConstant } from '../../constants/globalConstants'
 import { formatDateForChannelList } from '../../services/date'
 import Popup from '../Popup/Popup';
 import { UserContext } from '../../context/UserContext';
 import { addContact } from '../../services/api-services'
 
-function LeftPane({ currentSelectedChat }) {
+function HomeLeftPane({ currentSelectedChat }) {
 
 
   const { channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers } = useContext(UserContext);
@@ -26,7 +26,7 @@ function LeftPane({ currentSelectedChat }) {
     });
     //user.socket.emit('addContact', { data: "123" })
     user.socket.on('setOnlineStatus', setOnlineStatus)
-  })
+  }, [])
 
   const setOnlineStatus = (data) => {
     console.log("setOnlineStatus", data);
@@ -141,4 +141,4 @@ function LeftPane({ currentSelectedChat }) {
   )
 }
 
-export default LeftPane
+export default HomeLeftPane

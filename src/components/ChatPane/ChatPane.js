@@ -90,15 +90,43 @@ function ChatPane({ currentSelectedChat }) {
     const selectedFile = event.target.files[0];
     console.log(selectedFile)
     fileInputRef.current.value = null
+    var contentType = selectedFile.type.includes("mp4") ? "video" : "image"
     const currentMessage = {
       senderEmail: user.email,
-      contentType: "imageAndVideo",
+      contentType: contentType,
       content: selectedFile,
       mimeType: selectedFile.type,
       chatId: currentSelectedChat.chatId,
       timestamp: new Date()
     }
     user.socket.emit('sendMessage', currentMessage)
+    currentMessage.url = URL.createObjectURL(selectedFile);
+    console.log(currentMessage);
+    populateMessageInUI(currentMessage)
+  }
+
+  const getMessageItemUI = (messageItem) => {
+    switch (messageItem.contentType) {
+      case "text":
+        return <div className="chatItemTextContainer">
+          <div className="chatItemText">{messageItem.content}</div>
+          <div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div>
+        </div>
+      case "image":
+        return <div className="chatItemImgContainer">
+          <img className="chatItemImg" src={messageItem.url}></img>
+          <div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div>
+        </div>
+      case "video":
+        return <div className="chatItemImgContainer">
+          <video className="chatItemImg" controls>
+            <source src={messageItem.url} type="video/mp4" />
+          </video>
+          <div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div>
+        </div>
+      default:
+        return null;
+    }
   }
 
   return (
@@ -133,9 +161,11 @@ function ChatPane({ currentSelectedChat }) {
           {messagesOfAllUsers[currentSelectedChat.chatId] != null && messagesOfAllUsers[currentSelectedChat.chatId].messages.map((messageItem, i) => (
 
             <div key={i} className={"chatContentItem " + (user.email === messageItem.senderEmail ? "chatRight" : "chatLeft")}>
-              {console.log("user", user)}
+
               <img className="chatItemLogo" src={user.email === messageItem.senderEmail ? user.imageUrl : messagesOfAllUsers[currentSelectedChat.chatId].profilePicUrl} />
-              <div className="chatItemText">{messageItem.content}<div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div></div>
+              {getMessageItemUI(messageItem)}
+              {/* <div className="chatItemText">{messageItem.content}<div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div></div> */}
+              {/*  */}
 
             </div>
           )
@@ -167,7 +197,7 @@ function ChatPane({ currentSelectedChat }) {
           </div>
 
           <input
-            accept="image/*,video/*"
+            accept="image/*,video/mp4"
             onChange={fileInputChanged} ref={fileInputRef} type="file" style={{ display: "none" }} />
           <img onClick={chooseFileImageClicked} className="fileInput" src="/img/paperclip.svg" />
           <button onClick={onSendButtonClicked} className="sendButton">SEND</button>
