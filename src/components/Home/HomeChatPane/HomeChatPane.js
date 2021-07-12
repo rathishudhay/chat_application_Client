@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
-import './chatpane.css'
+import './homechatpane.css'
 
-import { getFormattedTimeString } from '../../services/date'
+import { getFormattedTimeString } from '../../../services/date'
 import Picker from 'emoji-picker-react';
-import { UserContext } from '../../context/UserContext';
-function ChatPane({ currentSelectedChat }) {
+import { UserContext } from '../../../context/UserContext';
+function HomeChatPane({ currentSelectedChat }) {
   // console.log("currentChannel", currentChatDetailsConst)
   // console.log("user", user)
   const { user, messagesOfAllUsers, setMessagesOfAllUsers } = useContext(UserContext)
@@ -208,4 +208,4 @@ function ChatPane({ currentSelectedChat }) {
   )
 }
 
-export default ChatPane
+export default HomeChatPane

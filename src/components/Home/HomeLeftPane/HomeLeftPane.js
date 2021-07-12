@@ -1,10 +1,9 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
 import './homeleftpane.css'
 // import { channelListConstant } from '../../constants/globalConstants'
-import { formatDateForChannelList } from '../../services/date'
-import Popup from '../Popup/Popup';
-import { UserContext } from '../../context/UserContext';
-import { addContact } from '../../services/api-services'
+import { formatDateForChannelList } from '../../../services/date'
+import Popup from '../../Popup/Popup';
+import { UserContext } from '../../../context/UserContext';
 
 function HomeLeftPane({ currentSelectedChat }) {
 

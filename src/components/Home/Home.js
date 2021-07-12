@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState, useMemo } from 'react'
 import { Socket } from 'socket.io-client'
 import { UserContext } from '../../context/UserContext'
-import HomeLeftPane from './HomeLeftPane'
-import ChatPane from '../ChatPane/ChatPane'
+import HomeLeftPane from './HomeLeftPane/HomeLeftPane'
+import HomeChatPane from './HomeChatPane/HomeChatPane'
 import './home.css'
 // import { currentChannelSelectedConst } from '../../constants/globalConstants'
 function Home() {
@@ -29,7 +29,7 @@ function Home() {
         <HomeLeftPane currentSelectedChat={currentSelectedChat} />
       </div>
       <div className="mainbar">
-        <ChatPane currentSelectedChat={currentSelectedChat} />
+        <HomeChatPane currentSelectedChat={currentSelectedChat} />
       </div>
       {/* {user.email}{user.socket.id} */}
     </div>
