@@ -19,40 +19,16 @@ function Auth() {
       const socket = io('http://localhost:3001');
       socket.on("connect", () => {
         console.log("you connected with Id:" + socket.id);
-        // addUserAndSocket({ socketId: socket.id, email: googleResponse.profileObj.email, profilePicUrl: googleResponse.profileObj.imageUrl, name: googleResponse.profileObj.name })
-        //   .then(res => {
-        //     console.log(res);
-        //     if (res.status == 200) {
-        //       let channelList = [], allUserMessages = {};
-        //       res.data.chatDetails.forEach((chatItem) => {
-        //         channelList.push({ ...chatItem.friendData, chatId: chatItem._id })
-        //         // const messagesOf
-        //         const userMessages = {
-        //           email: chatItem.friendData.email,
-        //           type: chatItem.type,
-        //           messages: chatItem.messages,
-        //           name: chatItem.friendData.name,
-        //           profilePicUrl: chatItem.friendData.profilePicUrl,
-        //           onlineStatus: chatItem.friendData.onlineStatus
-        //         }
-        //         allUserMessages[chatItem._id] = userMessages;
-        //       })
-        //       setChannelList(channelList)
-        //       setMessagesOfAllUsers(allUserMessages)
-        //       setUser({ ...googleResponse.profileObj, socket: socket })
-        //     }
-        //   })
-        //   .catch(err => {
-        //     alert("something went wrong")
-        //   })
-
-        socket.emit("onUserLogin", { socketId: socket.id, email: googleResponse.profileObj.email, profilePicUrl: googleResponse.profileObj.imageUrl, name: googleResponse.profileObj.name }, (res) => {
-          populateContactResponseDetails(res).then(() => {
-            console.log("user set new");
-            setUser({ ...googleResponse.profileObj, socket: socket })
-            history.replace('/chat')
+        if (googleResponse?.profileObj) {
+          socket.emit("onUserLogin", { socketId: socket.id, email: googleResponse.profileObj.email, profilePicUrl: googleResponse.profileObj.imageUrl, name: googleResponse.profileObj.name }, (res) => {
+            populateContactResponseDetails(res).then(() => {
+              console.log("user set new");
+              setUser({ ...googleResponse.profileObj, socket: socket })
+              history.replace('/chat')
+            })
           })
-        })
+        }
+
       })
     }
 
