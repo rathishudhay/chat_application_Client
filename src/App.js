@@ -9,8 +9,8 @@ function App() {
   const [user, setUser] = useState(null)
   const [channelList, setChannelList] = useState(null);
   const [messagesOfAllUsers, setMessagesOfAllUsers] = useState(null);
-  const [currentSelectedChat, setCurrentSelectedChat] = useState(null);
-  const value = useMemo(() => ({ user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChat, setCurrentSelectedChat }), [user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChat, setCurrentSelectedChat])
+  const [currentSelectedChatId, setCurrentSelectedChatId] = useState(null);
+  const value = useMemo(() => ({ user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId, setCurrentSelectedChatId }), [user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId, setCurrentSelectedChatId])
 
   // useEffect(() => {
   //   const socket = io('http://localhost:3001');

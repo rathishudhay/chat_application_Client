@@ -6,20 +6,20 @@ import ChatMessageContainer from './ChatMessageContainer/ChatMessageContainer'
 import { UserContext } from '../../../context/UserContext';
 import ChatTopBar from './ChatTopBar/ChatTopBar';
 import ChatSendBar from './ChatSendBar/ChatSendBar';
-function HomeChatPane({ currentSelectedChat }) {
+function HomeChatPane() {
 
-  const { messagesOfAllUsers } = useContext(UserContext)
+  const { messagesOfAllUsers, currentSelectedChatId } = useContext(UserContext)
   return (
     < div className="chatPaneContainer" >
       {console.log("messages", messagesOfAllUsers)}
-      {console.log("currentChatDetails", currentSelectedChat)}
-      {messagesOfAllUsers != undefined && messagesOfAllUsers[currentSelectedChat.chatId] != null &&
+      {console.log("currentChatDetails", currentSelectedChatId)}
+      {messagesOfAllUsers?.[currentSelectedChatId] &&
         <>
-          <ChatTopBar currentSelectedChat={currentSelectedChat} />
+          <ChatTopBar />
           <hr className="hr" />
-          <ChatMessageContainer currentSelectedChat={currentSelectedChat} />
+          <ChatMessageContainer />
           <hr className="hr" />
-          <ChatSendBar currentSelectedChat={currentSelectedChat} />
+          <ChatSendBar />
         </>
       }
     </div >

@@ -21,15 +21,14 @@ function Home() {
   //   var email = prompt("Enter email to add");
   //   user.socket.emit("addContactToUser", { userEmail: user.email, userToAddEmail: email })
   // }
-  const [chatId, setChatId] = useState(null);
-  const currentSelectedChat = useMemo(() => ({ chatId, setChatId }), [chatId, setChatId])
+
   return (
     <div className="homeContainer">
       <div className="sidebar">
-        <HomeLeftPane currentSelectedChat={currentSelectedChat} />
+        <HomeLeftPane />
       </div>
       <div className="mainbar">
-        <HomeChatPane currentSelectedChat={currentSelectedChat} />
+        <HomeChatPane />
       </div>
       {/* {user.email}{user.socket.id} */}
     </div>

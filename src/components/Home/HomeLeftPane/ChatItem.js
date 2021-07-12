@@ -1,6 +1,6 @@
 import React from 'react'
 
-function UserDetails() {
+function ChatItem() {
   return (
     <div>
 
@@ -8,4 +8,4 @@ function UserDetails() {
   )
 }
 
-export default UserDetails
+export default ChatItem

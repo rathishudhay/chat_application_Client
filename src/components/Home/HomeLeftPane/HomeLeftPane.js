@@ -4,11 +4,12 @@ import './homeleftpane.css'
 import { formatDateForChannelList } from '../../../services/date'
 import Popup from '../../Popup/Popup';
 import { UserContext } from '../../../context/UserContext';
+import UserDetails from './UserDetails';
 
-function HomeLeftPane({ currentSelectedChat }) {
+function HomeLeftPane() {
 
 
-  const { channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers } = useContext(UserContext);
+  const { channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId, setCurrentSelectedChatId } = useContext(UserContext);
   const [isAddContactPopupClose, setIsAddContactPopupClose] = useState(true);
   const [searchPeopleInput, setSearchPeopleInput] = useState("")
   const addEmailContactInputRef = useRef()
@@ -38,9 +39,9 @@ function HomeLeftPane({ currentSelectedChat }) {
   }
 
   const onChannelSelected = (chatId) => {
-    console.log(currentSelectedChat)
-    if (currentSelectedChat == undefined || currentSelectedChat.chatId !== chatId) {
-      currentSelectedChat.setChatId(chatId)
+    console.log(currentSelectedChatId)
+    if (currentSelectedChatId == undefined || currentSelectedChatId !== chatId) {
+      setCurrentSelectedChatId(chatId)
     }
     else {
       console.log("inside else onChannelSelected")
@@ -89,10 +90,9 @@ function HomeLeftPane({ currentSelectedChat }) {
 
   return (
     <div className="chatRightbarContent">
-      <img src={user.imageUrl} className="userImg" />
-      <div className="username">{user.name}</div>
-      <div className="email">{user.email}</div>
+      <UserDetails />
       <div className="searchContainer">
+
         <input
           className="searchInput"
           type="text"
@@ -124,6 +124,7 @@ function HomeLeftPane({ currentSelectedChat }) {
 
 
       </div>
+
       <div onClick={() => { setIsAddContactPopupClose(false) }} className="addContact">+</div>
       {!isAddContactPopupClose && <Popup heading="Add Contact" setClose={setIsAddContactPopupClose} >
         <div className="enterEmailAddContactText">Enter email to add to your contact</div>

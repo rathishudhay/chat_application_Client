@@ -2,27 +2,27 @@ import React, { useRef, useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../../../context/UserContext'
 import { getFormattedTimeString } from '../../../../services/date'
 import Picker from 'emoji-picker-react';
-function ChatSendBar({ currentSelectedChat }) {
+function ChatSendBar() {
   const textInputRef = useRef();
   const cursorPosition = useRef();
   const [chatTextInput, setChatTextInput] = useState("")
-  const { user, messagesOfAllUsers, setMessagesOfAllUsers } = useContext(UserContext)
+  const { user, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId } = useContext(UserContext)
   const [isEmojiOpen, setIsEmojiOpen] = useState(false);
 
   const fileInputRef = useRef();
 
   useEffect(() => {
     user.socket.on('receiveMessage', (data => { console.log("received", data); populateMessageInUI(data); }))
-    console.log(currentSelectedChat, messagesOfAllUsers, setMessagesOfAllUsers);
+    console.log(currentSelectedChatId, messagesOfAllUsers, setMessagesOfAllUsers);
   }, [])
 
   const onSendButtonClicked = () => {
-    console.log(currentSelectedChat)
+    console.log(currentSelectedChatId)
     const currentMessage = {
       senderEmail: user.email,
       contentType: "text",
       content: chatTextInput,
-      chatId: currentSelectedChat.chatId,
+      chatId: currentSelectedChatId,
       timestamp: new Date()
     }
     console.log(messagesOfAllUsers);
@@ -85,7 +85,7 @@ function ChatSendBar({ currentSelectedChat }) {
       contentType: contentType,
       content: selectedFile,
       mimeType: selectedFile.type,
-      chatId: currentSelectedChat.chatId,
+      chatId: currentSelectedChatId,
       timestamp: new Date()
     }
     user.socket.emit('sendMessage', currentMessage)

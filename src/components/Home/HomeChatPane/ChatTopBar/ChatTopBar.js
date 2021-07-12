@@ -1,20 +1,20 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../../../context/UserContext'
-function ChatTopBar({ currentSelectedChat }) {
-  const { messagesOfAllUsers } = useContext(UserContext);
+function ChatTopBar() {
+  const { messagesOfAllUsers, currentSelectedChatId } = useContext(UserContext);
   return (
     <div className="chatTopBar">
       <div className="chatTopLeftContainer">
         <div className="chatUserImgContainer">
-          <img className="chatUserImg" src={messagesOfAllUsers[currentSelectedChat.chatId].profilePicUrl} />
-          <div className={"onlineStatus " + messagesOfAllUsers[currentSelectedChat.chatId].onlineStatus} ></div>
+          <img className="chatUserImg" src={messagesOfAllUsers[currentSelectedChatId].profilePicUrl} />
+          <div className={"onlineStatus " + messagesOfAllUsers[currentSelectedChatId].onlineStatus} ></div>
         </div>
         <div className="userAndEmailContainer">
           <div className="username_chat">
-            {messagesOfAllUsers[currentSelectedChat.chatId].name}
+            {messagesOfAllUsers[currentSelectedChatId].name}
           </div>
           <div className="email_chat">
-            {messagesOfAllUsers[currentSelectedChat.chatId].email}
+            {messagesOfAllUsers[currentSelectedChatId].email}
           </div>
         </div>
       </div>
