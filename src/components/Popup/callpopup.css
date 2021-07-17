@@ -1,0 +1,81 @@
+.background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popupContainer {
+  width: 40%;
+  background: rgb(0, 0, 0);
+  box-shadow: 0 0 3px rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em;
+}
+.imgAndInfoContainer {
+  display: flex;
+}
+
+.callImage {
+  width: 3em;
+  margin-right: 2em;
+  /* animation: callImageAnim 2s infinite; */
+  /* background-color: red; */
+  /* filter: invert(100%) sepia(11%) saturate(7490%) hue-rotate(262deg)
+    brightness(107%) contrast(114%); */
+}
+
+@keyframes callImageAnim {
+  0% {
+    background: red;
+  }
+  50% {
+    background: rgb(166, 255, 0);
+  }
+  100% {
+    background: red;
+  }
+}
+
+.userNameCalling {
+  color: white;
+  font-size: 2rem;
+}
+
+.userEmailCalling {
+  color: white;
+  font-weight: 300;
+}
+
+.callActionButtons {
+  margin-top: 2.5em;
+}
+
+.acceptCallBtn {
+  padding: 0.8em 2em;
+  background-color: rgb(0, 214, 0);
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 0.5em;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-right: 2em;
+}
+
+.declineCallBtn {
+  padding: 0.8em 2em;
+  background-color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 0.5em;
+  font-size: 1rem;
+  font-weight: 700;
+}

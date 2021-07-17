@@ -12,7 +12,7 @@ function ChatMessageContainer() {
         </div>
       case "image":
         return <div className="chatItemImgContainer">
-          <img className="chatItemImg" src={messageItem.url}></img>
+          <img className="chatItemImg" src={messageItem.url} alt="chatItemImg"></img>
           <div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div>
         </div>
       case "video":
@@ -34,7 +34,7 @@ function ChatMessageContainer() {
 
         <div key={i} className={"chatContentItem " + (user.email === messageItem.senderEmail ? "chatRight" : "chatLeft")}>
 
-          <img className="chatItemLogo" src={user.email === messageItem.senderEmail ? user.imageUrl : messagesOfAllUsers[currentSelectedChatId].profilePicUrl} />
+          <img alt="chatLogo" className="chatItemLogo" src={user.email === messageItem.senderEmail ? user.imageUrl : messagesOfAllUsers[currentSelectedChatId].profilePicUrl} />
           {getMessageItemUI(messageItem)}
           {/* <div className="chatItemText">{messageItem.content}<div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div></div> */}
           {/*  */}

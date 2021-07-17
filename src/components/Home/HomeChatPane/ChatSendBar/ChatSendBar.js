@@ -1,6 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../../../context/UserContext'
-import { getFormattedTimeString } from '../../../../services/date'
 import Picker from 'emoji-picker-react';
 function ChatSendBar() {
   const textInputRef = useRef();
@@ -13,7 +12,6 @@ function ChatSendBar() {
 
   useEffect(() => {
     user.socket.on('receiveMessage', (data => { console.log("received", data); populateMessageInUI(data); }))
-    console.log(currentSelectedChatId, messagesOfAllUsers, setMessagesOfAllUsers);
   }, [])
 
   const onSendButtonClicked = () => {
@@ -94,29 +92,6 @@ function ChatSendBar() {
     populateMessageInUI(currentMessage)
   }
 
-  const getMessageItemUI = (messageItem) => {
-    switch (messageItem.contentType) {
-      case "text":
-        return <div className="chatItemTextContainer">
-          <div className="chatItemText">{messageItem.content}</div>
-          <div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div>
-        </div>
-      case "image":
-        return <div className="chatItemImgContainer">
-          <img className="chatItemImg" src={messageItem.url}></img>
-          <div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div>
-        </div>
-      case "video":
-        return <div className="chatItemImgContainer">
-          <video className="chatItemImg" controls>
-            <source src={messageItem.url} type="video/mp4" />
-          </video>
-          <div className="chatTime">{getFormattedTimeString(new Date(messageItem.timestamp))}</div>
-        </div>
-      default:
-        return null;
-    }
-  }
 
   return (
     <div className="chatBottomBar">

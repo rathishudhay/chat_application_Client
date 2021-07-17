@@ -1,11 +1,9 @@
 import { useContext } from 'react'
 
 import { GoogleLogin } from 'react-google-login';
-import axios from 'axios'
 import './auth.css'
 import { UserContext } from '../context/UserContext';
 import { io } from 'socket.io-client'
-import { addUserAndSocket } from '../services/api-services'
 import { useHistory } from 'react-router-dom'
 
 function Auth() {

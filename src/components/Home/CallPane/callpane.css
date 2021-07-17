@@ -1,0 +1,114 @@
+.callPane {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(25, 25, 25);
+  display: flex;
+}
+
+.callLeftPane {
+  flex: 5;
+  background: rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 2px solid rgb(106, 106, 106);
+}
+
+.otherUserVideoContainer {
+  /* background: rgb(67, 67, 67); */
+  flex: 4;
+  width: 90%;
+  margin: 1em;
+  border-radius: 0.5em;
+}
+
+.otherUserVideo {
+  width: 100%;
+  /* height: 100%; */
+  max-height: calc(100vh / 1.5);
+  border-radius: 0.5em;
+  object-fit: cover;
+}
+
+.currentUserVideoContainer {
+  background: rgb(39, 39, 39);
+  flex: 2;
+  width: 90%;
+  border-radius: 0.5em;
+}
+
+.currentUserVideo {
+  height: auto;
+  background: grey;
+  border-radius: 0.5em;
+  max-height: calc(100vh / 5);
+}
+
+.callControls {
+  flex: 1;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: rgb(106, 0, 255); */
+}
+
+.callControlIcons {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  padding: 0.8em;
+  margin: 0.5em;
+}
+
+.shareScreenIcon {
+  background: rgb(225, 225, 225);
+}
+
+.callEndIcon {
+  background: red;
+}
+
+.callRightPane {
+  flex: 2;
+  height: 100%;
+  overflow: auto;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+.callMessageContainer {
+  flex: 1;
+  overflow: auto;
+}
+.callMessageContainer::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 1px transparent;
+  box-shadow: inset 0 0 1px transparent;
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+.callMessageContainer::-webkit-scrollbar {
+  width: 4px;
+  background-color: transparent;
+}
+
+.callMessageContainer::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 2px transparent;
+  box-shadow: inset 0 0 2px transparent;
+  background-color: rgb(82, 82, 82);
+}
+
+.hr {
+  width: 100%;
+  color: rgb(255, 255, 255);
+  border: 0.1px solid rgb(72, 72, 72);
+  margin: 1em 0;
+}
