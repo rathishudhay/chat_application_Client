@@ -33,7 +33,7 @@ const checkIfDateIsOneDayAgo = (dateToCheck) => {
   return datesAreOnSameDay(yesterday, dateToCheck);
 }
 
-const getDateAndMonthString = (dateObject) => {
+export const getDateAndMonthString = (dateObject) => {
   const monthString = dateObject.toLocaleString('default', { month: 'short' })
   const dateString = dateObject.getDate();
   return dateString + " " + monthString

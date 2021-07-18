@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { UserContext } from '../../context/UserContext'
 import HomeLeftPane from './HomeLeftPane/HomeLeftPane'
 import HomeChatPane from './HomeChatPane/HomeChatPane'
@@ -10,20 +10,37 @@ import CallPane from './CallPane/CallPane';
 function Home() {
   console.log(useContext(UserContext))
   const { call, chatIdToCall } = useContext(SocketContext)
-  // const { user, setUser } = useContext(UserContext)
+  const { user, setMessagesOfAllUsers, setChannelList } = useContext(UserContext)
   // const { user, setUser } = useContext(UserContext)
   // const [friendUsers, setFriendUsers] = useState([]);
-  // useEffect(() => {
-  //   user.socket.emit("getFriendUsers", user.email);
-  //   user.socket.on("receiveFriendUsers", (friendUsersReceived) => {
-  //     setFriendUsers(friendUsersReceived);
-  //   })
-  // }, [])
+  useEffect(() => {
+    user.socket.on('receiveMessage', (data => { console.log("received", data); populateMessageInUI(data); }))
+  }, [])
 
   // const addContact = () => {
   //   var email = prompt("Enter email to add");
   //   user.socket.emit("addContactToUser", { userEmail: user.email, userToAddEmail: email })
   // }
+
+  const populateMessageInUI = (currentMessage) => {
+    setMessagesOfAllUsers((prevValue) => {
+      const newValue = { ...prevValue };
+      console.log("new value:", newValue)
+      newValue[currentMessage.chatId].messages.push(currentMessage);
+      return newValue
+    })
+
+    setChannelList((prevValue) => {
+      var index = prevValue.indexOf(currentMessage.chatId);
+      if (index !== -1) {
+        prevValue.splice(index, 1);
+      }
+      prevValue.unshift(currentMessage.chatId)
+      return prevValue;
+    })
+
+
+  }
 
   return (
     <div className="homeContainer">
@@ -31,7 +48,7 @@ function Home() {
         <HomeLeftPane />
       </div>
       <div className="mainbar">
-        <HomeChatPane />
+        <HomeChatPane populateMessageInUI={populateMessageInUI} />
       </div>
       {/* {user.email}{user.socket.id} */}
       {chatIdToCall && <CallPane />}

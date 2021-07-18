@@ -5,10 +5,11 @@ import './auth.css'
 import { UserContext } from '../context/UserContext';
 import { io } from 'socket.io-client'
 import { useHistory } from 'react-router-dom'
-
+import { SocketContext } from '../context/SocketContext'
 function Auth() {
 
   const { user, setUser, setChannelList, setMessagesOfAllUsers } = useContext(UserContext)
+  // const { init } = useContext(SocketContext);
   const history = useHistory();
   const responseGoogle = (googleResponse) => {
     console.log(googleResponse);
@@ -22,21 +23,37 @@ function Auth() {
             populateContactResponseDetails(res).then(() => {
               console.log("user set new");
               setUser({ ...googleResponse.profileObj, socket: socket })
-              history.replace('/chat')
+              setTimeout(() => {
+                console.log("timeout")
+                // init();
+                history.replace('/chat')
+              }, 100);
+
             })
           })
         }
-
       })
     }
-
   }
+
+  function compare(a, b) {
+    if (new Date(a?.messages?.slice(-1)?.pop()?.timestamp) > new Date(b?.messages?.slice(-1)?.pop()?.timestamp)) {
+      return -1;
+    }
+    if (new Date(a?.messages?.slice(-1)?.pop()?.timestamp) < new Date(b?.messages?.slice(-1)?.pop()?.timestamp)) {
+      return 1;
+    }
+    return 0;
+  }
+
+  // objs.sort(compare);
 
   const populateContactResponseDetails = (res) => {
     console.log("res", res);
     return new Promise((resolve, reject) => {
       let channelList = [], allUserMessages = {};
-      res.chatDetails.forEach((chatItem) => {
+
+      res.chatDetails.sort(compare).forEach((chatItem) => {
         channelList.push(chatItem._id)
         // const messagesOf
         const userMessages = {

@@ -72,6 +72,32 @@
   background-color: rgb(82, 82, 82);
 }
 
+.daySeperator {
+  overflow: hidden;
+  text-align: center;
+  color: rgb(138, 138, 138);
+  /* background-color: rgb(48, 48, 48); */
+  margin: 1em 0;
+}
+.daySeperator:before,
+.daySeperator:after {
+  background-color: rgb(118, 118, 118);
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 10%;
+}
+.daySeperator:before {
+  right: 1em;
+  margin-left: -50%;
+}
+.daySeperator:after {
+  left: 1em;
+  margin-right: -50%;
+}
+
 .chatContentItem {
   display: flex;
   margin-bottom: 1.5em;

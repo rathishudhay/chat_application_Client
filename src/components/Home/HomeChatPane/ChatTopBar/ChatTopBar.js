@@ -9,16 +9,21 @@ function ChatTopBar() {
   const { messagesOfAllUsers, currentSelectedChatId } = useContext(UserContext);
   const { chatIdToCall, setChatIdToCall, callUser, loadCurrentVideoAndInitialise } = useContext(SocketContext);
 
-  const callUserButtonClicked = () => {
+  const audioCallUserButtonClicked = () => {
     setChatIdToCall(currentSelectedChatId)
-    callUser(currentSelectedChatId)
-
+    setTimeout(() => {
+      callUser(false);
+    }, 1000);
   }
 
+  const videoCallUserButtonClicked = () => {
+    setChatIdToCall(currentSelectedChatId)
+    setTimeout(() => {
+      callUser(true);
+    }, 1000);
+  }
   return (
-
     <div className="chatTopBar">
-
       <div className="chatTopLeftContainer">
         <div className="chatUserImgContainer">
           <img className="chatUserImg" src={messagesOfAllUsers[currentSelectedChatId].profilePicUrl} />
@@ -35,13 +40,11 @@ function ChatTopBar() {
       </div>
       <div className="chatTopRightContainer">
         {console.log("ChatIdToCall:", chatIdToCall)}
-        <img onClick={() => { callUserButtonClicked() }} className="interactIcons_chatTop" src="/img/call.svg" />
-        <img className="interactIcons_chatTop" src="/img/video.svg" />
+        <img onClick={() => { audioCallUserButtonClicked() }} className="interactIcons_chatTop" src="/img/call.svg" />
+        <img onClick={() => { videoCallUserButtonClicked() }} className="interactIcons_chatTop" src="/img/video.svg" />
         <img className="interactIcons_chatTop" src="/img/menu.svg" />
       </div>
     </div>
-
-
   )
 }
 

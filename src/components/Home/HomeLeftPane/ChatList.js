@@ -30,9 +30,8 @@ function ChatList({ addContactInUI }) {
     setSearchPeopleInput(e.target.value);
     setChannelList((prevList) => {
       return originalChannelList.current.filter((channelItem) => {
-        return channelItem.name.includes(e.target.value) || channelItem.email.includes(e.target.value)
+        return messagesOfAllUsers[channelItem].name.includes(e.target.value) || messagesOfAllUsers[channelItem].email.includes(e.target.value)
       })
-
     })
   }
 

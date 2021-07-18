@@ -3,6 +3,7 @@ import './callpopup.css'
 import { SocketContext } from '../../context/SocketContext'
 function CallPopup({ callerName, callerEmail, chatIdToCall }) {
   const { declineCall, answerCall } = useContext(SocketContext)
+  console.log("chatIdToCall123:", chatIdToCall)
   return (
     <div className="background">
       <div className="popupContainer">
@@ -17,7 +18,6 @@ function CallPopup({ callerName, callerEmail, chatIdToCall }) {
             </div>
           </div>
         </div>
-
         <div className="callActionButtons">
           <button className="acceptCallBtn" onClick={() => answerCall(chatIdToCall)}>Accept</button>
           <button className="declineCallBtn" onClick={declineCall}>Decline</button>

@@ -3,6 +3,8 @@ import { formatDateForChannelList } from '../../../services/date'
 function ChatItem({ chatItemDetails }) {
   return (
     <>
+
+      {/* {console.log("inside chatitem", chatItemDetails, chatItemDetails.messages.slice(-1).pop().content)} */}
       <div className="chatPeopleSingleItem">
         <div className="chatUserImgWithOnlineStatus">
           <img src={chatItemDetails.profilePicUrl} className="chatPeopleSingleItemThumbnail" />
@@ -11,14 +13,13 @@ function ChatItem({ chatItemDetails }) {
         <div className="chatTextInfoContainer">
           <div className="chatUserAndTimeline">
             <div className="chatUsername">{chatItemDetails.name}</div>
-            <div className="chatTimeline">{chatItemDetails.lastMessageTime !== undefined && formatDateForChannelList(chatItemDetails.lastMessageTime)}</div>
+            {chatItemDetails.messages && <div className="chatTimeline">{formatDateForChannelList(new Date(chatItemDetails?.messages?.slice(-1)?.pop()?.timestamp))}</div>}
           </div>
-          <div className="lastChat">{chatItemDetails.lastMessage}</div>
+          {chatItemDetails.messages && <div className="lastChat">{chatItemDetails?.messages?.slice(-1)?.pop()?.content}</div>}
         </div>
       </div>
       <hr className="hr" />
     </>
   )
 }
-
 export default ChatItem

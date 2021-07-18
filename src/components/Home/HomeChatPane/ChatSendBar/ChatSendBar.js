@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from 'react'
 import { UserContext } from '../../../../context/UserContext'
 import Picker from 'emoji-picker-react';
-function ChatSendBar() {
+function ChatSendBar({ populateMessageInUI }) {
   const textInputRef = useRef();
   const cursorPosition = useRef();
   const [chatTextInput, setChatTextInput] = useState("")
@@ -11,7 +11,7 @@ function ChatSendBar() {
   const fileInputRef = useRef();
 
   useEffect(() => {
-    user.socket.on('receiveMessage', (data => { console.log("received", data); populateMessageInUI(data); }))
+    // user.socket.on('receiveMessage', (data => { console.log("received", data); populateMessageInUI(data); }))
   }, [])
 
   const onSendButtonClicked = () => {
@@ -30,14 +30,14 @@ function ChatSendBar() {
     setChatTextInput("");
   }
 
-  const populateMessageInUI = (currentMessage) => {
-    setMessagesOfAllUsers((prevValue) => {
-      const newValue = { ...prevValue };
-      console.log("new value:", newValue)
-      newValue[currentMessage.chatId].messages.push(currentMessage);
-      return newValue
-    })
-  }
+  // const populateMessageInUI = (currentMessage) => {
+  //   setMessagesOfAllUsers((prevValue) => {
+  //     const newValue = { ...prevValue };
+  //     console.log("new value:", newValue)
+  //     newValue[currentMessage.chatId].messages.push(currentMessage);
+  //     return newValue
+  //   })
+  // }
 
   const onEmojiClick = (event, emojiObject) => {
 

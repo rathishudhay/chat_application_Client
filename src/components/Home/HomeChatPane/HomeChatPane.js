@@ -6,7 +6,7 @@ import ChatMessageContainer from './ChatMessageContainer/ChatMessageContainer'
 import { UserContext } from '../../../context/UserContext';
 import ChatTopBar from './ChatTopBar/ChatTopBar';
 import ChatSendBar from './ChatSendBar/ChatSendBar';
-function HomeChatPane() {
+function HomeChatPane({ populateMessageInUI }) {
 
   const { messagesOfAllUsers, currentSelectedChatId } = useContext(UserContext)
   return (
@@ -19,7 +19,7 @@ function HomeChatPane() {
           <hr className="hr" />
           <ChatMessageContainer />
           <hr className="hr" />
-          <ChatSendBar />
+          <ChatSendBar populateMessageInUI={populateMessageInUI} />
         </>
       }
     </div >
