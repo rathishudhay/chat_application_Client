@@ -40,7 +40,7 @@ function ChatTopBar() {
       </div>
       <div className="chatTopRightContainer">
         {console.log("ChatIdToCall:", chatIdToCall)}
-        <img onClick={() => { audioCallUserButtonClicked() }} className="interactIcons_chatTop" src="/img/call.svg" />
+        {/* <img onClick={() => { audioCallUserButtonClicked() }} className="interactIcons_chatTop" src="/img/call.svg" /> */}
         <img onClick={() => { videoCallUserButtonClicked() }} className="interactIcons_chatTop" src="/img/video.svg" />
         <img className="interactIcons_chatTop" src="/img/menu.svg" />
       </div>

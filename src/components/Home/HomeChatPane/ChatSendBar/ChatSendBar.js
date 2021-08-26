@@ -92,6 +92,13 @@ function ChatSendBar({ populateMessageInUI }) {
     populateMessageInUI(currentMessage)
   }
 
+  const handleKeyDown = (event) => {
+    console.log(event)
+    if (event.key === 'Enter') {
+      onSendButtonClicked()
+    }
+  }
+
 
   return (
     <div className="chatBottomBar">
@@ -103,6 +110,7 @@ function ChatSendBar({ populateMessageInUI }) {
         ref={textInputRef}
         value={chatTextInput}
         onBlur={onTextInputBlur}
+        onKeyDown={handleKeyDown}
       />
       <div className="emojiContainer">
         <img onClick={(e) => displayEmojiClicked(e)} className="emojiInput" src="/img/smiley.svg" />
@@ -111,7 +119,8 @@ function ChatSendBar({ populateMessageInUI }) {
 
       <input
         accept="image/*,video/mp4"
-        onChange={fileInputChanged} ref={fileInputRef} type="file" style={{ display: "none" }} />
+        onChange={fileInputChanged} ref={fileInputRef} type="file" style={{ display: "none" }}
+      />
       <img onClick={chooseFileImageClicked} className="fileInput" src="/img/paperclip.svg" />
       <button onClick={onSendButtonClicked} className="sendButton">SEND</button>
     </div>

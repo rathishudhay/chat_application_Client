@@ -12,7 +12,8 @@ function App() {
   const [channelList, setChannelList] = useState(null);
   const [messagesOfAllUsers, setMessagesOfAllUsers] = useState(null);
   const [currentSelectedChatId, setCurrentSelectedChatId] = useState(null);
-  const value = useMemo(() => ({ user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId, setCurrentSelectedChatId }), [user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId, setCurrentSelectedChatId])
+  const [stream, setStream] = useState(null)
+  const value = useMemo(() => ({ user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId, setCurrentSelectedChatId, stream, setStream }), [user, setUser, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers, currentSelectedChatId, setCurrentSelectedChatId, stream, setStream])
 
   // useEffect(() => {
   //   if(user.socket!=null){

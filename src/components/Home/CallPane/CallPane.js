@@ -1,18 +1,9 @@
-import React, { useContext, useEffect } from 'react'
-import ChatMessageContainer from '../HomeChatPane/ChatMessageContainer/ChatMessageContainer'
-import ChatSendBar from '../HomeChatPane/ChatSendBar/ChatSendBar'
-import ChatTopBar from '../HomeChatPane/ChatTopBar/ChatTopBar'
+import React, { useContext } from 'react'
 import { SocketContext } from '../../../context/SocketContext'
-import { UserContext } from '../../../context/UserContext'
 import CallPopup from '../../Popup/CallPopup'
 import './callpane.css'
-function CallPane({ isCaller }) {
-  const { myVideo, callUser, userVideo, call, stopBothVideoAndAudio, endCall, loadCurrentVideoAndInitialise, callAccepted } = useContext(SocketContext);
-  const { currentSelectedChatId } = useContext(UserContext)
-  useEffect(() => {
-
-
-  }, [])
+function CallPane() {
+  const { myVideo, userVideo, call, endCall } = useContext(SocketContext);
 
   return (
     <div className="callPane">
@@ -25,23 +16,9 @@ function CallPane({ isCaller }) {
           <video muted ref={myVideo} className="currentUserVideo" playsInline autoPlay></video>
         </div>
         <div className="callControls">
-          <img onClick={() => { callUser('dummy') }} className="callControlIcons shareScreenIcon" src="/img/microphone.svg"></img>
-          <img className="callControlIcons shareScreenIcon" src="/img/video.svg"></img>
-          {/* <img className="callControlIcons shareScreenIcon" src="/img/shareScreen.svg"></img> */}
-          <img onClick={() => endCall()} className="callControlIcons callEndIcon" src="/img/call-end.svg"></img>
-
-          {/* <img className="callControlIcons shareScreenIcon" src="/img/micOff.svg"></img> */}
-
+          <img onClick={() => endCall()} className="callControlIcons callEndIcon" src="/img/call-end.svg" alt="call-end"></img>
         </div>
       </div>
-      {/* <div className="callRightPane">
-        <div className="callMessageContainer">
-          <ChatMessageContainer />
-        </div>
-        <hr className="hr" />
-        <ChatSendBar />
-      </div> */}
-
       {call != null && <CallPopup callerName={call.callerName} callerEmail={call.callerEmail} chatIdToCall={call.chatIdToCall} />}
     </div>
   )

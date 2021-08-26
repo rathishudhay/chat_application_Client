@@ -45,7 +45,7 @@
 
 .currentUserVideo {
   height: auto;
-  background: grey;
+  /* background: grey; */
   border-radius: 0.5em;
   max-height: calc(100vh / 5);
 }

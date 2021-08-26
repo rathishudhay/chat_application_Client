@@ -5,12 +5,13 @@ const SocketContext = createContext();
 
 const CallContextProvider = ({ children }) => {
   console.log("call context provider");
-  const [stream, setStream] = useState(null)
+
   const [call, setCall] = useState(null);
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
-  const { user, currentSelectedChatId } = useContext(UserContext)
+  const { user, currentSelectedChatId, stream, setStream } = useContext(UserContext)
+  console.log("user context", useContext(UserContext))
   const [chatIdToCall, setChatIdToCall] = useState(null);
   useEffect(() => {
     console.log("use effect on Context");
@@ -18,7 +19,6 @@ const CallContextProvider = ({ children }) => {
       console.log('user is calling', receivedData);
       setCall(receivedData);
     })
-
     user.socket.on('endCall', (chatId) => {
       console.log("endCall")
       endCallOther();
@@ -78,8 +78,6 @@ const CallContextProvider = ({ children }) => {
 
         })
     })
-
-
   }
 
   function stopBothVideoAndAudio() {
