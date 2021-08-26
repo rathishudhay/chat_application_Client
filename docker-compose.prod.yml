@@ -1,0 +1,12 @@
+version: '3'
+services:
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        NODE_ENV: production
+    ports:
+      - '5000:80'
+    environment:
+      - NODE_ENV=production
