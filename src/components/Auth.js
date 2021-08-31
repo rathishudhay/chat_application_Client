@@ -16,7 +16,7 @@ function Auth() {
     console.log(googleResponse);
     console.log(user);
     if (user == null) {
-      const socket = io(apiRootUrl);
+      const socket = io(apiRootUrl, { transports: ['websocket'] });
       socket.on("connect", () => {
         console.log("you connected with Id:" + socket.id);
         if (googleResponse?.profileObj) {
