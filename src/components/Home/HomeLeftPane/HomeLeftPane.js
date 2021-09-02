@@ -29,7 +29,15 @@ function HomeLeftPane() {
 
   const addContactPopupButtonClicked = () => {
     const friendEmail = addEmailContactInputRef.current.value;
-    user.socket.emit("addContact", { emailToAdd: friendEmail, userEmail: user.email }, (res) => addContactInUI(res.chatData))
+    user.socket.emit("addContact", { emailToAdd: friendEmail, userEmail: user.email }, (res) => {
+      console.log("add contact response", res);
+      if (res.chatData == null) {
+        alert("user not exists");
+      } else {
+        addContactInUI(res.chatData)
+      }
+
+    })
   }
 
   return (
