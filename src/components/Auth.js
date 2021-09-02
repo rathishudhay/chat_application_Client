@@ -7,6 +7,7 @@ import { io } from 'socket.io-client'
 import { useHistory } from 'react-router-dom'
 import { SocketContext } from '../context/SocketContext'
 import { socketApiUrl } from '../constants/api-constants'
+
 function Auth() {
 
   const { user, setUser, setChannelList, setMessagesOfAllUsers } = useContext(UserContext)
