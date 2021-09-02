@@ -6,7 +6,7 @@ import { UserContext } from '../context/UserContext';
 import { io } from 'socket.io-client'
 import { useHistory } from 'react-router-dom'
 import { SocketContext } from '../context/SocketContext'
-import { apiRootUrl } from '../constants/api-constants'
+import { socketApiUrl } from '../constants/api-constants'
 function Auth() {
 
   const { user, setUser, setChannelList, setMessagesOfAllUsers } = useContext(UserContext)
@@ -16,7 +16,7 @@ function Auth() {
     console.log(googleResponse);
     console.log(user);
     if (user == null) {
-      const socket = io(apiRootUrl, { transports: ['websocket'] });
+      const socket = io(socketApiUrl, { transports: ['websocket'] });
       socket.on("connect", () => {
         console.log("you connected with Id:" + socket.id);
         if (googleResponse?.profileObj) {
