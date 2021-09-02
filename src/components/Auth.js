@@ -87,7 +87,6 @@ function Auth() {
         cookiePolicy={'single_host_origin'}
         className="authBtn"
       />
-      <button>Test</button>
     </div>
   )
 }

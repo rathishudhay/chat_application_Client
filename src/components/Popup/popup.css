@@ -26,6 +26,7 @@
   align-items: center;
   background: rgb(44, 44, 44);
   padding: 1em 2em;
+  width: 100%;
 }
 
 .popupHeading {
