@@ -25,6 +25,7 @@ function Home() {
   const populateMessageInUI = (currentMessage) => {
     console.log("currentMessage", currentMessage)
     // console.log(messagesOfAllUsers)
+
     // currentMessage.timestamp = "2021-08-17T13:17:27.120Z"
     setMessagesOfAllUsers((prevValue) => {
       console.log("prevValue", prevValue)
