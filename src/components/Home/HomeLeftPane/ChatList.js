@@ -18,6 +18,10 @@ function ChatList({ addContactInUI }) {
     user.socket.on('setOnlineStatus', setOnlineStatus)
   }, [])
 
+  useEffect(() => {
+    setTempChannelList(channelList);
+  }, [channelList])
+
   const setOnlineStatus = (data) => {
     console.log("setOnlineStatus", data);
     setMessagesOfAllUsers((prevData => {
@@ -38,7 +42,6 @@ function ChatList({ addContactInUI }) {
       console.log("newList", newList);
       return newList;
     })
-
   }
 
   const onChannelSelected = (chatId) => {
@@ -64,7 +67,7 @@ function ChatList({ addContactInUI }) {
       </div>
 
       <div className="chatPeopleList">
-        {tempChannelList.map(chatId => (<div onClick={() => onChannelSelected(chatId)} className="singleItemContainer">
+        {channelList.map(chatId => (<div onClick={() => onChannelSelected(chatId)} className="singleItemContainer">
           <ChatItem chatItemDetails={messagesOfAllUsers[chatId]} />
         </div>))
         }
