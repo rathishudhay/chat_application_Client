@@ -13,9 +13,9 @@ function ChatItem({ chatItemDetails }) {
         <div className="chatTextInfoContainer">
           <div className="chatUserAndTimeline">
             <div className="chatUsername">{chatItemDetails.name}</div>
-            {chatItemDetails.messages && <div className="chatTimeline">{formatDateForChannelList(new Date(chatItemDetails?.messages?.slice(-1)?.pop()?.timestamp))}</div>}
+            {chatItemDetails?.messages.length > 0 && <div className="chatTimeline">{formatDateForChannelList(new Date(chatItemDetails?.messages?.slice(-1)?.pop()?.timestamp))}</div>}
           </div>
-          {chatItemDetails.messages && <div className="lastChat">{chatItemDetails?.messages?.slice(-1)?.pop()?.contentType == "text" ? chatItemDetails?.messages?.slice(-1)?.pop()?.content : "sent you " + chatItemDetails?.messages?.slice(-1)?.pop()?.contentType}</div>}
+          {chatItemDetails?.messages.length > 0 && <div className="lastChat">{chatItemDetails?.messages?.slice(-1)?.pop()?.contentType == "text" ? chatItemDetails?.messages?.slice(-1)?.pop()?.content : "sent you " + chatItemDetails?.messages?.slice(-1)?.pop()?.contentType}</div>}
         </div>
       </div>
       <hr className="hr" />

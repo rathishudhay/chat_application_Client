@@ -5,7 +5,8 @@ import ChatItem from './ChatItem';
 function ChatList({ addContactInUI }) {
   const { user, currentSelectedChatId, setCurrentSelectedChatId, channelList, setChannelList, messagesOfAllUsers, setMessagesOfAllUsers } = useContext(UserContext);
   const [searchPeopleInput, setSearchPeopleInput] = useState("")
-  const originalChannelList = useRef(channelList)
+  const originalChannelList = useRef(channelList);
+  const [tempChannelList, setTempChannelList] = useState(channelList);
 
   useEffect(() => {
     // console.log("effect", messagesOfAllUsers, channelList)
@@ -27,12 +28,17 @@ function ChatList({ addContactInUI }) {
   }
 
   const searchPeopleInputChanged = (e) => {
+    console.log(channelList);
     setSearchPeopleInput(e.target.value);
-    setChannelList((prevList) => {
-      return originalChannelList.current.filter((channelItem) => {
+    setTempChannelList((prevList) => {
+      const newList = originalChannelList.current.filter((channelItem) => {
+        console.log(messagesOfAllUsers[channelItem])
         return messagesOfAllUsers[channelItem].name.includes(e.target.value) || messagesOfAllUsers[channelItem].email.includes(e.target.value)
       })
+      console.log("newList", newList);
+      return newList;
     })
+
   }
 
   const onChannelSelected = (chatId) => {
@@ -58,7 +64,7 @@ function ChatList({ addContactInUI }) {
       </div>
 
       <div className="chatPeopleList">
-        {channelList.map(chatId => (<div onClick={() => onChannelSelected(chatId)} className="singleItemContainer">
+        {tempChannelList.map(chatId => (<div onClick={() => onChannelSelected(chatId)} className="singleItemContainer">
           <ChatItem chatItemDetails={messagesOfAllUsers[chatId]} />
         </div>))
         }
